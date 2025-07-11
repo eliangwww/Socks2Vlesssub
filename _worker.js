@@ -54,7 +54,6 @@ export default {
                 "Profile-web-page-url": url.origin,
                 //"Subscription-Userinfo": `upload=${UD}; download=${UD}; total=${total}; expire=${expire}`,
             };
-            if (!userAgent.includes('mozilla')) responseHeaders["Content-Disposition"] = `attachment; filename*=utf-8''${encodeURIComponent(FileName)}`;
 
             if (!userAgent.includes('subconverter') && (userAgent.includes('clash') && !userAgent.includes('nekobox') && !userAgent.includes('cf-workers-sub'))) {
                 subConverterUrl = `https://${subConverter}/sub?target=clash&url=${encodeURIComponent(subConverterUrl)}&insert=false&config=${encodeURIComponent(subConfig)}&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
