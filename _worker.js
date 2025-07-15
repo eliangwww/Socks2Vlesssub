@@ -8,7 +8,7 @@ const fakeUserID = '00000000-0000-0000-0000-000000000000';
 const fakeHostName = 'www.baidu.com';
 let 网络备案 = `© 2025 Socks2VLESS订阅生成器 - <a href='https://t.me/CMLiussss'>萌ICP备-20240707号</a>`;//写你自己的维护者广告
 let 网站图标, 网站背景;
-
+let 保留socks = 1000
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
