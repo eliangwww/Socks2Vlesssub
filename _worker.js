@@ -63,13 +63,17 @@ export default {
             } else {
                 const 协议类型 = url.searchParams.has('uuid') ? atob('dmxlc3M=') : 'trojan';
 
-                if (url.searchParams.has('socks5api') && url.searchParams.get('socks5api') !== '') {
-                    const socks5api = await 整理(decodeURIComponent(url.searchParams.get('socks5api')));
-                    socks5s = await 获取socks5api(socks5api);
-                } else {
-                    const 内置socks5api = env.SOCKS5API ? await 整理(env.SOCKS5API) : ['https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json'];
-                    socks5s = await 获取socks5api(内置socks5api);
-                }
+if (url.searchParams.has('socks5api') && url.searchParams.get('socks5api') !== '') {
+    const socks5api = await 整理(decodeURIComponent(url.searchParams.get('socks5api')));
+    socks5s = await 获取socks5api(socks5api);
+    // Limit to first 50 entries
+    socks5s = socks5s.slice(0, 50);
+} else {
+    const 内置socks5api = env.SOCKS5API ? await 整理(env.SOCKS5API) : ['https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json'];
+    socks5s = await 获取socks5api(内置socks5api);
+    // Limit to first 50 entries
+    socks5s = socks5s.slice(0, 50);
+}
 
                 const links = socks5s.map(socks5带地址 => {
                     const socks5 = socks5带地址.includes('@') ?
