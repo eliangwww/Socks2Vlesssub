@@ -67,19 +67,20 @@ export default {
                 const 协议类型 = url.searchParams.has('uuid') ? atob('dmxlc3M=') : 'trojan';
 
              // Get start and end parameters from URL, default to 0 and 50 if not provided
+// Get start and end parameters from URL, default start=0, and if no socksend, take all entries
 const socksstart = url.searchParams.has('socksstart') ? parseInt(url.searchParams.get('socksstart')) : 0;
-const socksend = url.searchParams.has('socksend') ? parseInt(url.searchParams.get('socksend')) : 50;
+const socksend = url.searchParams.has('socksend') ? parseInt(url.searchParams.get('socksend')) : undefined; // undefined means no limit
 
 if (url.searchParams.has('socks5api') && url.searchParams.get('socks5api') !== '') {
     const socks5api = await 整理(decodeURIComponent(url.searchParams.get('socks5api')));
     socks5s = await 获取socks5api(socks5api);
-    // Use the provided start and end parameters
-    socks5s = socks5s.slice(socksstart, socksend);
+    // Only slice if socksend is defined
+    socks5s = socksend !== undefined ? socks5s.slice(socksstart, socksend) : socks5s.slice(socksstart);
 } else {
     const 内置socks5api = env.SOCKS5API ? await 整理(env.SOCKS5API) : ['https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json'];
     socks5s = await 获取socks5api(内置socks5api);
-    // Use the provided start and end parameters
-    socks5s = socks5s.slice(socksstart, socksend);
+    // Only slice if socksend is defined
+    socks5s = socksend !== undefined ? socks5s.slice(socksstart, socksend) : socks5s.slice(socksstart);
 }
 
                 const links = socks5s.map(socks5带地址 => {
