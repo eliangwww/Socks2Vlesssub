@@ -8,7 +8,8 @@ const fakeUserID = '00000000-0000-0000-0000-000000000000';
 const fakeHostName = 'www.baidu.com';
 let 网络备案 = `© 2025 Socks2VLESS订阅生成器 - <a href='https://t.me/CMLiussss'>萌ICP备-20240707号</a>`;//写你自己的维护者广告
 let 网站图标, 网站背景;
-let 保留socks = 1000
+let socksstart = 0;
+let socksend = 50;
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -27,6 +28,8 @@ export default {
         FileName = env.SUBNAME || FileName;
         网站图标 = env.ICO ? `<link rel="icon" sizes="32x32" href="${env.ICO}">` : '';
         网络备案 = env.BEIAN || env.BY || 网络备案;
+        socksstart = env.START || socksstart;
+        socksend = env.END || socksend;
         if (env.IMG) {
             const imgs = await 整理(env.IMG);
             网站背景 = `background-image: url('${imgs[Math.floor(Math.random() * imgs.length)]}');`;
@@ -67,7 +70,7 @@ if (url.searchParams.has('socks5api') && url.searchParams.get('socks5api') !== '
     const socks5api = await 整理(decodeURIComponent(url.searchParams.get('socks5api')));
     socks5s = await 获取socks5api(socks5api);
     // Limit to first 50 entries
-    socks5s = socks5s.slice(50, 100);
+    socks5s = socks5s.slice(socksstart, socksend);
 } else {
     const 内置socks5api = env.SOCKS5API ? await 整理(env.SOCKS5API) : ['https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json'];
     socks5s = await 获取socks5api(内置socks5api);
