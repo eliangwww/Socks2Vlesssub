@@ -117,9 +117,13 @@ if (url.searchParams.has('socks5api') && url.searchParams.get('socks5api') !== '
                     const hostMatch = socks5.match(/(socks5|http):\/\/(?:.*@)?([^:\/]+):/);
                     const host名称 = hostMatch ? hostMatch[2] : '未知';
 
+                    // 从URL参数获取要删除的关键字(delt)和替换文本(addt)
+                    const delt = url.searchParams.get('delt') || '';  // 默认空字符串（不删除）
+                    const addt = url.searchParams.get('addt') || '';  // 默认空字符串（直接删除不替换）
+
                     const 落地国家 = socks5带地址.split('#').length > 1 
-                          ? socks5带地址.split('#')[1].replace(/${delt}/g, '${addt}')  // 删除指定关键字
-                          : host名称;
+                        ? socks5带地址.split('#')[1].replace(new RegExp(delt, 'g'), addt)  // 动态替换
+                        : host名称;
 
                     const link = `${协议类型}://${uuid}@${优选域名}:${优选端口}?encryption=none&security=tls&sni=${host}&fp=randomized&type=ws&host=${host}&path=%2F${encodeURIComponent(socks5)}&allowInsecure=1&fragment=1,40-60,30-50,tlshello#${encodeURIComponent(落地国家)}`;
                     return link;
