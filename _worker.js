@@ -817,94 +817,66 @@ async function Html(request, DIY = true) {
     <div class="container fade-in">
         <h1>${FileName}</h1>
         
-<!-- 第一个板块：节点信息 -->
-<div class="section">
-    <h2 class="section-title">节点信息</h2>
-    <div class="form-group">
-        <label for="nodeLink">节点链接：</label>
-        <input type="text" id="nodeLink" placeholder="请输入 vless://... 或 trojan://... 格式的节点链接">
-        <div id="nodeLinkError" class="error"></div>
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <label for="preferredDomain">优选域名：</label>
-            <input type="text" id="preferredDomain" placeholder="icook.hk">
+        <!-- 第一个板块：节点信息 -->
+        <div class="section">
+            <h2 class="section-title">节点信息</h2>
+            <div class="form-group">
+                <label for="nodeLink">节点链接：</label>
+                <input type="text" id="nodeLink" placeholder="请输入 vless://... 或 trojan://... 格式的节点链接">
+                <div id="nodeLinkError" class="error"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="preferredDomain">优选域名：</label>
+                    <input type="text" id="preferredDomain" placeholder="icook.hk">
+                </div>
+                <div class="form-group">
+                    <label for="preferredPort">优选端口：</label>
+                    <input type="text" id="preferredPort" placeholder="443">
+                </div>
+            </div>
+            <div class="form-group tooltip">
+                <p><small>需自行部署 <a href="https://github.com/cmliu/edgetunnel" target="_blank">edgetunnel</a>、<a href="https://github.com/cmliu/epeius" target="_blank">epeius</a> 项目</small></p>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="preferredPort">优选端口：</label>
-            <input type="text" id="preferredPort" placeholder="443">
-        </div>
-    </div>
-    <div class="form-group tooltip">
-        <p><small>需自行部署 <a href="https://github.com/cmliu/edgetunnel" target="_blank">edgetunnel</a>、<a href="https://github.com/cmliu/epeius" target="_blank">epeius</a> 项目</small></p>
-    </div>
-</div>
-
-<!-- 第二个板块：SOCKS5信息 -->
-${DIY ? `<div class="section">
-    <h2 class="section-title">SOCKS5 & HTTP 代理</h2>
-    <div class="form-group">
-        <label for="socks5Api">全局代理落地：</label>
-        <textarea id="socks5Api" rows="4" style="height: auto;" placeholder="http://45.91.201.88:19999#US
+        
+        <!-- 第二个板块：SOCKS5信息 -->
+        ${DIY ? `<div class="section">
+            <h2 class="section-title">SOCKS5 & HTTP 代理</h2>
+            <div class="form-group">
+                <label for="socks5Api">全局代理落地：</label>
+<textarea id="socks5Api" rows="4" style="height: auto;" placeholder="http://45.91.201.88:19999#US
 socks5://123:123@64.226.95.45:1080#DE
 https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json
 https://raw.githubusercontent.com/cmliu/Socks2Vlesssub/refs/heads/main/socks5api.txt"></textarea>
-        <p><small>每行一个 <strong>LINK</strong> 或 <strong>API链接</strong>，API支持 <a href="https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json" target="_blank">Json</a> 和 <a href="https://raw.githubusercontent.com/cmliu/Socks2Vlesssub/refs/heads/main/socks5api.txt" target="_blank">txt</a> 格式</small></p>
-    </div>
-</div>` : ''}
-
-<!-- 新增板块：SOCKS5参数控制 -->
-${DIY ? `<div class="section">
-    <h2 class="section-title">SOCKS5参数控制</h2>
-    <div class="form-row">
-        <div class="form-group">
-            <label for="socksStart">起始位置(socksstart)：</label>
-            <input type="number" id="socksStart" value="0" min="0" placeholder="默认为0">
+                <p><small>每行一个 <strong>LINK</strong> 或 <strong>API链接</strong>，API支持 <a href="https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/socks5/data.json" target="_blank">Json</a> 和 <a href="https://raw.githubusercontent.com/cmliu/Socks2Vlesssub/refs/heads/main/socks5api.txt" target="_blank">txt</a> 格式</small></p>
+            </div>
+        </div>` : ''}
+        
+        <!-- 第三个板块：生成订阅 -->
+        <div class="section">
+            <h2 class="section-title">
+                订阅链接
+                <span class="info-icon" id="infoIcon">!</span>
+            </h2>
+            <div id="infoTooltip" class="info-tooltip">
+                <strong>安全提示</strong>：使用Socks2VLESS订阅生成器时，需要您提交 <strong>节点配置信息</strong> 用于生成优选订阅链接。这意味着订阅器的维护者可能会获取到该节点信息。<strong>请自行斟酌使用风险。</strong><br>
+                <br>
+                订阅转换后端：<strong><a href='${subProtocol}://${subConverter}/version' target="_blank" rel="noopener noreferrer">${subProtocol}://${subConverter}</a></strong><br>
+                订阅转换配置文件：<strong><a href='${subConfig}' target="_blank" rel="noopener noreferrer">${subConfig}</a></strong>
+            </div>
+            <div class="output-container">
+                <button id="generateBtn" class="button">生成订阅</button>
+                <div id="subscriptionLink" class="output">点击按钮生成订阅链接</div>
+            </div>
+            <div class="output-container" style="margin-top: 15px;">
+                <button id="generateShortUrl" class="button" style="background: linear-gradient(90deg, #10b981, #059669); opacity: 0.6; cursor: not-allowed;" disabled>生成短链</button>
+                <div id="ShortUrl" class="output">点击按钮生成短链接</div>
+            </div>
+            <div style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: -15px;">
+                <label id="qrcode"></label>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="socksEnd">结束位置(socksend)：</label>
-            <input type="number" id="socksEnd" value="50" min="1" placeholder="默认为50">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <label for="delt">删除关键字(delt)：</label>
-            <input type="text" id="delt" placeholder="如:广告|测试|推广">
-        </div>
-        <div class="form-group">
-            <label for="addt">替换为(addt)：</label>
-            <input type="text" id="addt" placeholder="替换后的文本">
-        </div>
-    </div>
-    <div class="form-group tooltip">
-        <p><small>socksstart/socksend: 控制使用的代理范围<br>delt/addt: 过滤和替换国家名称中的关键字</small></p>
-    </div>
-</div>` : ''}
-
-<!-- 第三个板块：生成订阅 -->
-<div class="section">
-    <h2 class="section-title">
-        订阅链接
-        <span class="info-icon" id="infoIcon">!</span>
-    </h2>
-    <div id="infoTooltip" class="info-tooltip">
-        <strong>安全提示</strong>：使用Socks2VLESS订阅生成器时，需要您提交 <strong>节点配置信息</strong> 用于生成优选订阅链接。这意味着订阅器的维护者可能会获取到该节点信息。<strong>请自行斟酌使用风险。</strong><br>
-        <br>
-        订阅转换后端：<strong><a href='${subProtocol}://${subConverter}/version' target="_blank" rel="noopener noreferrer">${subProtocol}://${subConverter}</a></strong><br>
-        订阅转换配置文件：<strong><a href='${subConfig}' target="_blank" rel="noopener noreferrer">${subConfig}</a></strong>
-    </div>
-    <div class="output-container">
-        <button id="generateBtn" class="button">生成订阅</button>
-        <div id="subscriptionLink" class="output">点击按钮生成订阅链接</div>
-    </div>
-    <div class="output-container" style="margin-top: 15px;">
-        <button id="generateShortUrl" class="button" style="background: linear-gradient(90deg, #10b981, #059669); opacity: 0.6; cursor: not-allowed;" disabled>生成短链</button>
-        <div id="ShortUrl" class="output">点击按钮生成短链接</div>
-    </div>
-    <div style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: -15px;">
-        <label id="qrcode"></label>
-    </div>
-</div>
         
         <div class="beian-info" style="text-align: center; font-size: 13px;">
             ${网络备案}
@@ -977,10 +949,6 @@ ${DIY ? `<div class="section">
             const nodeLink = document.getElementById('nodeLink').value.trim();
             let preferredDomain = document.getElementById('preferredDomain').value.trim() || 'icook.hk';
             let preferredPort = document.getElementById('preferredPort').value.trim() || '443';
-            const socksstart = document.getElementById('socksStart').value || 0;
-            const socksend = document.getElementById('socksEnd').value || 50;
-            const delt = document.getElementById('delt').value || '';
-            const addt = document.getElementById('addt').value || '';
             
             // 检查socks5Api元素是否存在（当DIYsocks5为false时该元素不存在）
             const socks5ApiElement = document.getElementById('socks5Api');
@@ -1047,9 +1015,9 @@ ${DIY ? `<div class="section">
             // 生成订阅链接
             let subscriptionLink;
             if (linkType === 'vless') {
-                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\`;
+                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}\`;
             } else {
-                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&pw=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\`;
+                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&pw=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}\`;
             }
 
             // 显示结果，添加渐变效果
