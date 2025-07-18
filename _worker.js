@@ -1011,13 +1011,19 @@ https://raw.githubusercontent.com/cmliu/Socks2Vlesssub/refs/heads/main/socks5api
 
             // 处理 SOCKS5 API，替换换行为 | 并进行URL编码
             const processedSocks5Api = encodeURIComponent(socks5Api.replace(/[\\r\\n]+/g, '|'));
+            // 获取参数值
+            const socksstart = document.getElementById('socksStart').value || 0;
+            const socksend = document.getElementById('socksEnd').value || 50;
+            const delt = document.getElementById('delt').value || '';
+            const addt = document.getElementById('addt').value || '';
+
 
             // 生成订阅链接
             let subscriptionLink;
             if (linkType === 'vless') {
-                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}\`;
+                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\}`;
             } else {
-                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&pw=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}\`;
+                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&pw=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\`;
             }
 
             // 显示结果，添加渐变效果
