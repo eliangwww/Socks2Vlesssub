@@ -10,8 +10,8 @@ let 网络备案 = `© 2025 Socks2VLESS订阅生成器 - <a href='https://t.me/C
 let 网站图标, 网站背景;
 let socksstart = 0;
 let socksend = 50;
-let delt = 指定字符;
-let addt = 指定字符;
+let delt = '指定字符';
+let addt = '指定字符';
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
