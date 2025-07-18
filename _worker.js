@@ -977,6 +977,10 @@ ${DIY ? `<div class="section">
             const nodeLink = document.getElementById('nodeLink').value.trim();
             let preferredDomain = document.getElementById('preferredDomain').value.trim() || 'icook.hk';
             let preferredPort = document.getElementById('preferredPort').value.trim() || '443';
+            const socksstart = document.getElementById('socksStart').value || 0;
+            const socksend = document.getElementById('socksEnd').value || 50;
+            const delt = document.getElementById('delt').value || '';
+            const addt = document.getElementById('addt').value || '';
             
             // 检查socks5Api元素是否存在（当DIYsocks5为false时该元素不存在）
             const socks5ApiElement = document.getElementById('socks5Api');
@@ -1039,12 +1043,6 @@ ${DIY ? `<div class="section">
 
             // 处理 SOCKS5 API，替换换行为 | 并进行URL编码
             const processedSocks5Api = encodeURIComponent(socks5Api.replace(/[\\r\\n]+/g, '|'));
-            // 获取参数值
-            const socksstart = document.getElementById('socksStart').value || 0;
-            const socksend = document.getElementById('socksEnd').value || 50;
-            const delt = document.getElementById('delt').value || '';
-            const addt = document.getElementById('addt').value || '';
-
 
             // 生成订阅链接
             let subscriptionLink;
