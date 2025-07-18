@@ -1021,7 +1021,7 @@ https://raw.githubusercontent.com/cmliu/Socks2Vlesssub/refs/heads/main/socks5api
             // 生成订阅链接
             let subscriptionLink;
             if (linkType === 'vless') {
-                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\}`;
+                subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&uuid=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\`;
             } else {
                 subscriptionLink = \`https://${host}/sub?host=\${encodeURIComponent(host)}&pw=\${encodeURIComponent(uuidOrPassword)}&address=\${encodeURIComponent(preferredDomain)}&port=\${encodeURIComponent(preferredPort)}&socks5api=\${processedSocks5Api}&socksstart=\${socksstart}&socksend=\${socksend}&delt=\${encodeURIComponent(delt)}&addt=\${encodeURIComponent(addt)\`;
             }
